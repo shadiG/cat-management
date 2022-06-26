@@ -4,14 +4,22 @@ import 'package:flamingo_annotation/flamingo_annotation.dart';
 part 'cat.flamingo.dart';
 
 class Cat extends Document<Cat> {
-  Cat({
-    String? id,
-    DocumentSnapshot<Map<String, dynamic>>? snapshot,
-    Map<String, dynamic>? values,
-  }) : super(id: id, snapshot: snapshot, values: values);
+  Cat(
+      {String? id,
+      DocumentSnapshot<Map<String, dynamic>>? snapshot,
+      Map<String, dynamic>? values,
+      CollectionReference<Map<String, dynamic>>? collectionRef})
+      : super(
+            id: id,
+            snapshot: snapshot,
+            values: values,
+            collectionRef: collectionRef);
 
   @Field()
   String? name;
+
+  @Field()
+  String? description;
 
   @Field()
   String? catPicture;
