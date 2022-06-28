@@ -13,43 +13,45 @@ class CatList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: CatRepository.getAll(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          List<Widget> children;
-          if (!snapshot.hasData) {
-            children = [const LoadingCatWidget()];
-          } else {
-            if (snapshot.hasError) {
-              children = [const NetErrorWidget()];
-            } else {
-              List<Cat>? cats =
-                  HomeTabController.processChangedCatList(snapshot);
-              children = <Widget>[
-                ListView.separated(
-                  itemCount: cats?.length ?? 0,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    if (cats?.isNotEmpty ?? false) {
-                      return CatLineWidget(cats!.elementAt(index));
-                    } else {
-                      return const SizedBox();
-                    }
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Divider(),
-                )
-              ];
-            }
-          }
+    return NetworkCallWidget(
+        child: StreamBuilder<QuerySnapshot>(
+            stream: CatRepository.getAll(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              List<Widget> children;
+              if (!snapshot.hasData) {
+                children = [const LoadingCatWidget()];
+              } else {
+                if (snapshot.hasError) {
+                  children = [const NetErrorWidget()];
+                } else {
+                  List<Cat>? cats =
+                      HomeTabController.processChangedCatList(snapshot);
+                  children = <Widget>[
+                    ListView.separated(
+                      itemCount: cats?.length ?? 0,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        if (cats?.isNotEmpty ?? false) {
+                          return CatLineWidget(cats!.elementAt(index));
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(),
+                    )
+                  ];
+                }
+              }
 
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: children,
-            ),
-          );
-        });
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: children,
+                ),
+              );
+            }));
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cat_management/views/widgets/loading_list_widget.dart';
 import 'package:cat_management/views/widgets/me_tab/my_featured_cat.dart';
 import 'package:flutter/material.dart';
 
@@ -66,11 +67,16 @@ class MeTab extends StatelessWidget {
               textAlign: TextAlign.left,
             ),
           ),
-          const MyFeaturedCat(),
-          const Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: MyCat(),
-          )
+          NetworkCallWidget(
+              child: Column(
+            children: [
+              const MyFeaturedCat(),
+              const Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: MyCat(),
+              )
+            ],
+          ))
         ],
       )),
     );

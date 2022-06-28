@@ -13,44 +13,46 @@ class FeaturedCatList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: FeaturedCatRepository.getAll(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          List<Widget> children;
-          if (!snapshot.hasData ||
-              snapshot.connectionState == ConnectionState.waiting) {
-            children = [const LoadingCatWidget()];
-          } else {
-            if (snapshot.hasError) {
-              children = [const NetErrorWidget()];
-            } else {
-              List<FeaturedCat>? featuredCats =
-                  HomeTabController.processChangedFeaturedCatList(snapshot);
-              children = <Widget>[
-                ListView.separated(
-                  itemCount: featuredCats?.length ?? 0,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (BuildContext context, int index) {
-                    if (featuredCats?.isNotEmpty ?? false) {
-                      return FeaturedCatLineWidget(
-                          featuredCats!.elementAt(index));
-                    } else {
-                      return const SizedBox();
-                    }
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Divider(),
-                )
-              ];
-            }
-          }
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: children,
-            ),
-          );
-        });
+    return NetworkCallWidget(
+        child: StreamBuilder<QuerySnapshot>(
+            stream: FeaturedCatRepository.getAll(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              List<Widget> children;
+              if (!snapshot.hasData ||
+                  snapshot.connectionState == ConnectionState.waiting) {
+                children = [const LoadingCatWidget()];
+              } else {
+                if (snapshot.hasError) {
+                  children = [const NetErrorWidget()];
+                } else {
+                  List<FeaturedCat>? featuredCats =
+                      HomeTabController.processChangedFeaturedCatList(snapshot);
+                  children = <Widget>[
+                    ListView.separated(
+                      itemCount: featuredCats?.length ?? 0,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        if (featuredCats?.isNotEmpty ?? false) {
+                          return FeaturedCatLineWidget(
+                              featuredCats!.elementAt(index));
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(),
+                    )
+                  ];
+                }
+              }
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: children,
+                ),
+              );
+            }));
   }
 }

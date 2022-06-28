@@ -1,3 +1,5 @@
+import 'package:cat_management/utils/app_theme_data.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -102,17 +104,45 @@ class NetErrorWidget extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        Icon(
+      children: [
+        const Icon(
           Icons.error_outline,
           color: Colors.red,
           size: 60,
         ),
         Padding(
-          padding: EdgeInsets.only(top: 16),
-          child: Text('Sorry, we have some problems loading featured cats 😿'),
+          padding: const EdgeInsets.only(top: 16),
+          child: Text(
+            'Sorry, we have some problems loading these cats 😿',
+            style: AppThemeData.lineStyle,
+            textAlign: TextAlign.center,
+          ),
         )
       ],
+    );
+  }
+}
+
+class NetworkCallWidget extends StatelessWidget {
+  Widget child;
+  NetworkCallWidget({required this.child, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: Connectivity().checkConnectivity(),
+      builder: (_, result) {
+        if (result.connectionState == ConnectionState.done) {
+          if ((result.data == ConnectivityResult.wifi) ||
+              (result.data == ConnectivityResult.mobile)) {
+            return child;
+          } else {
+            return const NetErrorWidget();
+          }
+        } else {
+          return const LoadingCatWidget();
+        }
+      },
     );
   }
 }
