@@ -16,7 +16,7 @@ class HomePageServices {
 
     Application.init();
 
-    appDefaultDataCreation();
+    await appDefaultDataCreation();
 
     // let's randomly load a catHolder
     CatHolderRepository.getARandomCatHolder().then((value) {
@@ -24,15 +24,15 @@ class HomePageServices {
     });
   }
 
-  static void appDefaultDataCreation() {
+  static Future appDefaultDataCreation() async {
     if (AppConfig.createDefaultUsers) {
-      CatHolderFactory.createCatHolders();
+      await CatHolderFactory.createCatHolders();
     }
     if (AppConfig.createDefaultCat) {
-      CatFactory.createCats();
+      await CatFactory.createCats();
     }
     if (AppConfig.createDefaultFeaturedCat) {
-      FeaturedCatFactory.createFeaturedCats();
+      await FeaturedCatFactory.createFeaturedCats();
     }
   }
 }

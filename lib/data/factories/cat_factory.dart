@@ -3,7 +3,7 @@ import 'package:flamingo/flamingo.dart';
 import '../entities/cat.dart';
 
 class CatFactory {
-  static void createCats() async {
+  static Future createCats() async {
     //since we have a lot of data to commit, let's use batch then
     // Batch
     final batch = Batch();
@@ -53,6 +53,21 @@ class CatFactory {
         ..description =
             ' any of a family (Felidae) of carnivores, including the lion, tiger, cougar, etc., characterized by a lithe body and, in all species but the cheetah, retractile claws'
         ..catPicture = 'cat/cat-8.jpeg',
+      Cat()
+        ..name = 'Aretha Franklin'
+        ..description =
+            'a double tripod having six legs but resting on only three no matter how it is set down, usually used before or over a fire'
+        ..catPicture = 'cat/cat-12.jpeg',
+      Cat()
+        ..name = 'Dua Lipa'
+        ..description =
+            'However, although the cone cells are also responsible for color vision, it is uncertain whether cats can see colors'
+        ..catPicture = 'cat/cat-13.jpeg',
+      Cat()
+        ..name = 'Halsey'
+        ..description =
+            'Cats are better at conserving heat than at cooling themselves, although their small size relative to their large surface area makes for more effective cooling than in dogs'
+        ..catPicture = 'cat/cat-14.jpeg',
     ];
 
     for (Cat cat in cats) {

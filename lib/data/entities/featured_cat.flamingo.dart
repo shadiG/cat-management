@@ -10,6 +10,7 @@ part of 'featured_cat.dart';
 enum FeaturedCatKey {
   name,
   catPicture,
+  description,
   specialFeature,
 }
 
@@ -20,6 +21,8 @@ extension FeaturedCatKeyExtension on FeaturedCatKey {
         return 'name';
       case FeaturedCatKey.catPicture:
         return 'catPicture';
+      case FeaturedCatKey.description:
+        return 'description';
       case FeaturedCatKey.specialFeature:
         return 'specialFeature';
       default:
@@ -33,6 +36,7 @@ Map<String, dynamic> _$toData(FeaturedCat doc) {
   final data = <String, dynamic>{};
   Helper.writeNotNull(data, 'name', doc.name);
   Helper.writeNotNull(data, 'catPicture', doc.catPicture);
+  Helper.writeNotNull(data, 'description', doc.description);
   Helper.writeNotNull(data, 'specialFeature', doc.specialFeature);
 
   return data;
@@ -43,6 +47,8 @@ void _$fromData(FeaturedCat doc, Map<String, dynamic> data) {
   doc.name = Helper.valueFromKey<String?>(data, 'name', defaultValue: null);
   doc.catPicture =
       Helper.valueFromKey<String?>(data, 'catPicture', defaultValue: null);
+  doc.description =
+      Helper.valueFromKey<String?>(data, 'description', defaultValue: null);
   doc.specialFeature =
       Helper.valueFromKey<String?>(data, 'specialFeature', defaultValue: null);
 }

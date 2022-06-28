@@ -2,7 +2,7 @@ import 'package:cat_management/data/entities/cat_holder.dart';
 import 'package:flamingo/flamingo.dart';
 
 class CatHolderFactory {
-  static void createCatHolders() async {
+  static Future createCatHolders() async {
     //since we have a lot of data to commit, let's use batch then
     // Batch
     final batch = Batch();
