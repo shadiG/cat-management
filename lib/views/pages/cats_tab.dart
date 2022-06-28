@@ -22,8 +22,8 @@ class CatsTab extends StatelessWidget {
             style: AppThemeData.lineStyle,
             textAlign: TextAlign.left,
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 5, bottom: 5),
+          Padding(
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
             child: FeaturedCatList(),
           ),
           Text(

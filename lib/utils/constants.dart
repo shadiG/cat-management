@@ -7,4 +7,7 @@ class Constants {
   static const String remove = "Remove";
 
   static const double secondBlockWidth = 260;
+  static const String objectNotFoundError = "object-not-found";
+
+  static const String profileLoadingIssues = "Sorry, we have some problems loading your profile 😿";
 }

@@ -13,7 +13,6 @@ class HomePageServices {
     WidgetsFlutterBinding.ensureInitialized();
     await Flamingo
         .initializeApp(); // flamingo initialize Firebase at the same time
-
     Application.init();
 
     await appDefaultDataCreation();

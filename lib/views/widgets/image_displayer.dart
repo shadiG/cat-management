@@ -18,17 +18,18 @@ class _ImageDisplayerState extends State<ImageDisplayer> {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       if (widget.imagePath != null && (widget.imagePath?.isNotEmpty ?? false)) {
-        try {
-          final ref = FirebaseStorage.instance.ref().child(widget.imagePath!);
-          ref.getDownloadURL().then((value) {
-            setState(() {
-              src = value;
-            });
+        final ref = FirebaseStorage.instance.ref().child(widget.imagePath!);
+        ref.getDownloadURL().then((value) {
+          setState(() {
+            src = value;
           });
-        } catch (e) {
-          debugPrint(
-              "The image couldn't be loaded because it doesn't exist on the server");
-        }
+        }).catchError((onError) {
+          if (onError is FirebaseException &&
+              onError.code == "object-not-found") {
+            debugPrint(
+                "The image couldn't be loaded because it doesn't exist on the server");
+          }
+        });
       }
     });
   }

@@ -11,10 +11,12 @@ class FeaturedCatRepository {
         .snapshots();
   }
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getHisFeaturedCat() {
-    return firestoreInstance
-        .collection(Application.catHolder!.featuredCats!.ref.path)
-        .snapshots();
+  static Stream<QuerySnapshot<Map<String, dynamic>>>? getHisFeaturedCat() {
+    return Application.catHolder != null
+        ? firestoreInstance
+            .collection(Application.catHolder!.featuredCats!.ref.path)
+            .snapshots()
+        : null;
   }
 
   // check if the corresponding featured cat belongs to the catHolder

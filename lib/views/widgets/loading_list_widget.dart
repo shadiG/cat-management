@@ -93,3 +93,26 @@ class LoadingCatWidget extends StatelessWidget {
     );
   }
 }
+
+class NetErrorWidget extends StatelessWidget {
+  const NetErrorWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        Icon(
+          Icons.error_outline,
+          color: Colors.red,
+          size: 60,
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 16),
+          child: Text('Sorry, we have some problems loading featured cats 😿'),
+        )
+      ],
+    );
+  }
+}
